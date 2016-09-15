@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="/../javascripts/startTest.js"></script>
+  <script>
+    $(document).ready(function(){
+      $("#getNames").click(function(event){
+        if ($("#getNames").val() == "Show registered names") {
+          $.getJSON('names.json', function(data) {
+            var namesList = "";
+            for(var i = 0; i < data.length; i++) {
+              namesList += data[i].first_name + " " + data[i].last_name + "<br>";
+            }
+            $("#namesList").html(namesList);
+            $("#namesListText").fadeOut(800, function(){
+              $("#namesList").fadeIn(800);
+            });
+          });
+          $("#getNames").val("Hide registered names");
+        } else {
+          $("#namesList").fadeOut(800, function(){
+            $("#namesListText").fadeIn(800);
+          });
+          $("#getNames").val("Show registered names");
+        }
+      });
+    });
+  </script>
+
+  <body onload="onLoad()">
+
+    <div>
+      <h1>Reaction test</h1>
+
+      <p id="desc">Click the button when the red circle becomes blue</p>
+    </div>
+
+    <div id="divcircle">
+      <svg id="svgelem" xmlns="http://www.w3.org/2000/svg">
+        <circle id="circle" cx="50%" cy="50%" r="50" fill="red"/>
+      </svg>
+    </div>
+
+    <div>
+      <button id="startButton" type="button" onclick="startTest()">Start</button>
+      <button id="endButton" type="button" onclick="endTest()">Click</button>
+    </div>
+
+    <form action="http://localhost:8000/process_post" method="post">
+      <div class="ex1">
+        First Name: <input type="text" id="first_name" name="first_name"> <br>
+        Last Name: <input type="text" id="last_name" name="last_name"> <br>
+        <input type="submit" value="Register name">
+      </div>
+    </form>
+
+    <form action="http://localhost:8000/process_get" method="get">
+      <div class="ex1">
+        <input type="submit" value="Get registered names">
+      </div>
+    </form>
+
+    <div class="ex1">
+      <p id="namesListText">Click below to show all registered names</p>
+      <p id="namesList" style="display:none"></p>
+      <input type="button" id="getNames" value="Show registered names">
+    </div>
+
+  </body>
+
+</html>

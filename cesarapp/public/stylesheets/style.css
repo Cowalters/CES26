@@ -1,6 +1,15 @@
 body {
-  padding: 50px;
+  padding: 25px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  text-align: center;
+}
+
+div.ex1 {
+  padding: 25px;
+}
+
+#divcircle {
+  position: relative;
 }
 
 a {
