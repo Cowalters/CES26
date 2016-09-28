@@ -34,6 +34,10 @@ router.get('/process_get', function (req, res) {
 
   var fileJSON = JSON.parse(fileString);
 
+  if (fileJSON.length == 0) {
+    res.send("No names registered yet.");
+  }
+
   var textToSend = "";
 
   // Iterating through the JSON array and concatening the names
