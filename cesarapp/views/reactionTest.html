@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 
-<html>
+<html ng-app>
   
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="/../javascripts/startTest.js"></script>
   <script>
     $(document).ready(function(){
       $("#getNames").click(function(event){
+        // Loading the file names.json to show in the page the name of all registered users
         if ($("#getNames").val() == "Show registered names") {
           $.getJSON('names.json', function(data) {
             var namesList = "";
@@ -38,30 +40,34 @@
   <body onload="onLoad()">
 
     <div>
-      <h1>Reaction test</h1>
+      <h1>Reaction test (Weeks 1-4)</h1>
 
       <p id="desc">Click the button when the red circle becomes blue</p>
     </div>
 
+    <!-- A red circle that becomes blue to measure the user reaction time -->
     <div id="divcircle">
       <svg id="svgelem" xmlns="http://www.w3.org/2000/svg">
         <circle id="circle" cx="50%" cy="50%" r="50" fill="red"/>
       </svg>
     </div>
 
+    <!-- Buttons that triggers the events that control the reaction time test -->
     <div>
-      <button id="startButton" type="button" onclick="startTest()">Start</button>
+      <button id="startButton" type="button" onclick="startTest()">Click here to start</button>
       <button id="endButton" type="button" onclick="endTest()">Click</button>
     </div>
 
+    <!-- Post method that register the name of the user -->
     <form action="./process_post" method="post">
       <div class="ex1">
-        First Name: <input type="text" id="first_name" name="first_name"> <br>
-        Last Name: <input type="text" id="last_name" name="last_name"> <br>
+        First Name: <input type="text" id="first_name" name="first_name" placeholder="First name"> <br>
+        Last Name: <input type="text" id="last_name" name="last_name" placeholder="Last name"> <br>
         <input type="submit" value="Register name">
       </div>
     </form>
 
+    <!-- Get method that shows to the user all the names that have been registered -->
     <form action="./process_get" method="get">
       <div class="ex1">
         <input type="submit" value="Get registered names">
@@ -73,6 +79,37 @@
       <p id="namesList" style="display:none"></p>
       <input type="button" id="getNames" value="Show registered names">
     </div>
+
+    <h1>Palindromes with AngularJS (Week 5)</h1>
+
+    <div class="ex1" ng-controller="MyController">
+      <input ng-model="word" type="text" placeholder="Type a palindrome">
+      <button ng-click="verifyPalindrome()">Verify palindrome</button>
+      <h2>{{ verifyResult }}</h2>
+      <p>Palindromes typed so far:</p>
+      <p ng-show="!palindromesList.length">None :(</p>
+      <ul>
+        <!-- Listing all palindromes inserted by the user so far -->
+        <li ng-repeat="palindrome in palindromesList">{{ palindrome }}</li>
+      </ul>
+    </div>
+
+    <script type="text/javascript">
+      // Controller that verifies if the user input is a palindrome and manages the palindrome list
+      function MyController($scope) {
+        $scope.palindromesList = [];
+        $scope.verifyPalindrome = function() {
+          if ($scope.word == $scope.word.split("").reverse().join("")) {
+            $scope.verifyResult = "It's a palindrome!";
+            if (!$scope.palindromesList.includes($scope.word)) {
+              $scope.palindromesList.push($scope.word);
+            }
+          } else {
+            $scope.verifyResult = "It's not a palindrome.";
+          }
+        };
+      };
+    </script>
 
   </body>
 

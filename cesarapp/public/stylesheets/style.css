@@ -8,6 +8,13 @@ div.ex1 {
   padding: 25px;
 }
 
+ul {
+  position: absolute;
+  padding-left: 0;
+  text-align: left;
+  left: 50%;
+}
+
 #divcircle {
   position: relative;
 }

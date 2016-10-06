@@ -56,6 +56,8 @@ app.use(function(err, req, res, next) {
   });
 });
 
-app.listen('8000');
+app.listen(8000, function(){
+  console.log('Listening on port ' + this.address().port);
+});
 
 module.exports = app;

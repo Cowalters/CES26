@@ -1,6 +1,7 @@
 var startTime = 0;
 var waitInterval = 0;
 
+// Loads the content as soon as the page is shown
 function onLoad() {
   document.getElementById("divcircle").style.display = "none";
   document.getElementById("endButton").style.display = "none";
@@ -23,6 +24,8 @@ function startTest() {
       left: 0,
     }, 1500);
 
+  // Waiting a random time interval of 2 to 7 seconds before the ball
+  // becomes blue
   waitInterval = (Math.random() * 5) + 2;
   startTime = new Date().getTime();
 
@@ -38,12 +41,14 @@ function sleep (time) {
 function endTest() {
   var endTime = new Date().getTime();
 
+  // Checking the user's reaction time  
   if (endTime - startTime < waitInterval * 1000) {
     window.alert("Clicked before the circle became blue :(");
   } else {
     window.alert("Reaction time: " + (endTime - (startTime + waitInterval * 1000)) + " ms");
   }
 
+  // Reset the UI
   document.getElementById("startButton").style.display = "inline";
   $("#startButton").text("Retry");
   $("#startButton").focus();
