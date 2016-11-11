@@ -8,9 +8,9 @@ var ItemRecord = Immutable.Record({
 
 var initialList = [
   { done: true, text: "Prepare a presentation - Done!" },
-  { done: false, text: "Hold a presentation about React.js" },
-  { done: false, text: "Do some live coding" },
-  { done: false, text: "Add a timer" }
+  { done: false, text: "Book the room" },
+  { done: false, text: "Finish the report" },
+  { done: false, text: "Get the university degree!" }
 ];
 
 class App extends React.Component {
